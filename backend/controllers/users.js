@@ -1,7 +1,10 @@
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const { SALT_ROUNDS, JWT_TOKEN } = require('../config/index');
+const { SALT_ROUNDS, JWT_DEV_TOKEN } = require('../config/index');
+
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const {
   BadRequestError, UnauthorizedError, NotFoundError, ConflictError,
 } = require('../errors');
@@ -147,7 +150,7 @@ const login = (req, res, next) => {
   findUserByCredentials(req.body.email, req.body.password)
     .then((user) => {
       // создадим токен
-      const token = jwt.sign({ _id: user._id }, JWT_TOKEN, { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : JWT_DEV_TOKEN, { expiresIn: '7d' });
 
       res.cookie('jwt', token, {
         // token - наш JWT токен, который мы отправляем
