@@ -62,11 +62,13 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routesAuth);
+/*
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
+*/
 app.use(auth, routesUser);
 app.use(auth, routesCard);
 app.use('*', () => { throw new NotFoundError('Ресурс не найден'); });
