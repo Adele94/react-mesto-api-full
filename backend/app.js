@@ -29,12 +29,13 @@ const allowedCors = [
 ];
 
 // eslint-disable-next-line consistent-return
+/*
 app.use((req, res, next) => {
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
   // проверяем, что источник запроса есть среди разрешённых
   if (allowedCors.includes(origin)) {
     // устанавливаем заголовок, который разрешает браузеру запросы с этого источника
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', origin);
   }
 
   const { method } = req; // Сохраняем тип запроса (HTTP-метод) в соответствующую переменную
@@ -58,7 +59,7 @@ app.use((req, res, next) => {
 
   next();
 });
-
+*/
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routesAuth);
