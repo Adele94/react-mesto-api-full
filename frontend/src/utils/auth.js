@@ -42,8 +42,14 @@ export const authorize = ({password, email}) => {
     if(res.status === 401) {
       return Promise.reject("Пользователь с email не найден");
     }
-    return res.json();
   })
+  .then((response => response.json()))
+      .then((data) => {
+          if (data.token){
+              localStorage.setItem('token', data.token);
+              return data;
+           }
+       })
 };
 
 export const checkToken = (token) => {

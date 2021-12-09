@@ -130,9 +130,11 @@ function App() {
   function handleLogin({ password, email }) {
     auth.authorize({ password, email })
       .then((res) => {
+        if(res.token){
         localStorage.setItem('token', res.token);
         setUserEmail(email);
         setLoggedIn(true);
+        }
       })
       .catch((err) => {
         console.log(err);
