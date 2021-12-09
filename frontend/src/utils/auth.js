@@ -80,3 +80,4 @@ export const checkToken = (token) => {
       return _getResponseData(res);
     })
 };
+

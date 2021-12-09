@@ -152,11 +152,7 @@ const login = (req, res, next) => {
       // создадим токен
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : JWT_DEV_TOKEN, { expiresIn: '7d' });
 
-      res.cookie('jwt', token, {
-        // token - наш JWT токен, который мы отправляем
-        maxAge: 3600000 * 24 * 7,
-        httpOnly: true,
-      }).send({ token });
+      res.send({ token });
     })
     .catch(next);
 };
