@@ -130,7 +130,6 @@ function App() {
   function handleLogin({ password, email }) {
     auth.authorize({ password, email })
       .then((res) => {
-        console.log("RES", res);
         localStorage.setItem('token', res.token);
         setUserEmail(email);
         setLoggedIn(true);
@@ -184,6 +183,7 @@ function App() {
 
   useEffect(() => {
     if (loggedIn === true) {
+      handleTokenCheck();
       history.push("/");
     }
   }, [loggedIn, history]);
