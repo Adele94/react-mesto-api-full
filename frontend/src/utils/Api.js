@@ -15,7 +15,8 @@ class Api {
   //получение массива карточек 
   getInitialCards() {
     return fetch(this.url + '/cards', {
-      headers: this.headers
+      headers: this.headers,
+      credentials: 'include'
     })
       .then(res => {
         return this._getResponseData(res);
@@ -26,7 +27,8 @@ class Api {
   getUserProfile() {
     return fetch(this.url + '/users/me', {
       headers: this.headers,
-      method: 'GET'
+      method: 'GET',
+      credentials: 'include'
     })
       .then(res => {
         return this._getResponseData(res);
@@ -38,6 +40,7 @@ class Api {
     return fetch(this.url + '/cards', {
       headers: this.headers,
       method: 'POST',
+      credentials: 'include',
       body: JSON.stringify(data)
     })
       .then(res => {
@@ -50,6 +53,7 @@ class Api {
     return fetch(this.url + '/cards/' + cardID, {
       headers: this.headers,
       method: 'DELETE',
+      credentials: 'include'
     })
       .then(res => {
         return this._getResponseData(res);
@@ -61,6 +65,7 @@ class Api {
     return fetch(this.url + '/users/me', {
       headers: this.headers,
       method: 'PATCH',
+      credentials: 'include',
       body: JSON.stringify({
         name: userName,
         about: userAbout
@@ -76,6 +81,7 @@ class Api {
     return fetch(this.url + '/users/me/avatar', {
       headers: this.headers,
       method: 'PATCH',
+      credentials: 'include',
       body: JSON.stringify({
         avatar: avatarUrl
       })
@@ -89,7 +95,8 @@ class Api {
   renderLikes(cardID, method) {
     return fetch(this.url + '/cards/likes/' + cardID, {
       headers: this.headers,
-      method: method
+      method: method,
+      credentials: 'include'
     })
       .then(res => {
         return this._getResponseData(res);

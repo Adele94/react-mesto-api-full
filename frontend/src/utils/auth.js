@@ -9,6 +9,7 @@ export const register = ({password, email}) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({
       password,
       email,
@@ -61,7 +62,8 @@ export const checkToken = (token) => {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
-    }
+    },
+    credentials: 'include'
   })
   .then((res) => {
     if(res.status === 400) {

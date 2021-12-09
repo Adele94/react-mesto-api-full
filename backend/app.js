@@ -7,6 +7,7 @@ const routesUser = require('./routes/users');
 const routesCard = require('./routes/cards');
 const routesAuth = require('./routes/auth');
 const auth = require('./middlewares/auth');
+
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { NotFoundError } = require('./errors');
 
@@ -25,18 +26,19 @@ app.use(requestLogger); // подключаем логгер запросов
 const allowedCors = [
   'https://mesto.adel.nabiullina.nomoredomains.rocks',
   'http://mesto.adel.nabiullina.nomoredomains.rocks',
-  'localhost:3000',
+  'https://localhost:3000',
+  'http://localhost:3000',
 ];
 
 // eslint-disable-next-line consistent-return
-
 app.use((req, res, next) => {
   const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
   // проверяем, что источник запроса есть среди разрешённых
-  console.log('ORIGIN:', origin);
+
   if (allowedCors.includes(origin)) {
     // устанавливаем заголовок, который разрешает браузеру запросы с этого источника
     res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
   }
 
   const { method } = req; // Сохраняем тип запроса (HTTP-метод) в соответствующую переменную
@@ -55,7 +57,6 @@ app.use((req, res, next) => {
     // разрешаем кросс-доменные запросы с этими заголовками
     res.header('Access-Control-Allow-Headers', requestHeaders);
 
-    res.header('Access-Control-Allow-Credentials', true);
     // завершаем обработку запроса и возвращаем результат клиенту
     return res.end();
   }
