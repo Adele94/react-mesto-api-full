@@ -42,11 +42,13 @@ export const authorize = ({password, email}) => {
     if(res.status === 401) {
       return Promise.reject("Пользователь с email не найден");
     }
+    return res.json();
+  })
+  .then((res) => {
     if (res.token) {
       localStorage.setItem('token', res.token);
       return res;
     }
-    return res.json();
   })
 };
 
