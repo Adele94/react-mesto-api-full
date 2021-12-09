@@ -183,7 +183,6 @@ function App() {
 
   useEffect(() => {
     if (loggedIn === true) {
-      handleTokenCheck();
       history.push("/");
     }
   }, [loggedIn, history]);

@@ -53,20 +53,13 @@ export const authorize = ({ password, email }) => {
       }
       return _getResponseData(res);
     })
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('token', data.token);
-        return data;
-      }
-    })
 };
 
 export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     },
     credentials: 'include'
   })
