@@ -21,7 +21,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(requestLogger); // подключаем логгер запросов
 
-/*
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
   'https://mesto.adel.nabiullina.nomoredomains.rocks',
@@ -35,7 +34,7 @@ app.use((req, res, next) => {
   // проверяем, что источник запроса есть среди разрешённых
   if (allowedCors.includes(origin)) {
     // устанавливаем заголовок, который разрешает браузеру запросы с этого источника
-    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Origin', '*');
   }
 
   const { method } = req; // Сохраняем тип запроса (HTTP-метод) в соответствующую переменную
@@ -59,7 +58,7 @@ app.use((req, res, next) => {
 
   next();
 });
-*/
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routesAuth);
