@@ -30,6 +30,7 @@ export const authorize = ({password, email}) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({
       password,
       email,
@@ -42,7 +43,9 @@ export const authorize = ({password, email}) => {
     if(res.status === 401) {
       return Promise.reject("Пользователь с email не найден");
     }
-    res.json();
+    if (res.ok) {
+      return res.json();
+    }
   })
   .then((data) => {
       if (data.token){

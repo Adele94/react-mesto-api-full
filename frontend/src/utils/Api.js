@@ -101,7 +101,7 @@ class Api {
 const api = new Api({
   baseUrl: 'https://api.mesto.adel.nabiullina.nomoredomains.work',
   headers: {
-    authorization: 'c38fc67e-bfd7-4e8c-84be-5445e5cdf811',
+    authorization: `Bearer ${localStorage.getItem('token')}`,
     'Content-Type': 'application/json'
   }
 });
