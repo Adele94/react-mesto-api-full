@@ -7,7 +7,7 @@ class Api {
 
   _getResponseData(res) {
     if (!res.ok) {
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return Promise.reject(`Ошибка: ${res.status} ${res.message}`);
     }
     return res.json();
   }
@@ -102,16 +102,13 @@ class Api {
         return this._getResponseData(res);
       });
   }
-  // другие методы работы с API
 }
 
 const api = new Api({
   baseUrl: 'https://api.mesto.adel.nabiullina.nomoredomains.work',
   headers: {
-    authorization: `Bearer ${localStorage.getItem('token')}`,
     'Content-Type': 'application/json'
   }
 });
-
 
 export default api;

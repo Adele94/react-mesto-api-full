@@ -2,7 +2,14 @@
 
 export const BASE_URL = 'https://api.mesto.adel.nabiullina.nomoredomains.work';
 
-export const register = ({password, email}) => {
+const _getResponseData = (res) =>{
+  if (!res.ok) {
+    return Promise.reject(`Ошибка: ${res.status} ${res.message}`);
+  }
+  return res.json();
+}
+
+export const register = ({ password, email }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
@@ -13,18 +20,18 @@ export const register = ({password, email}) => {
     body: JSON.stringify({
       password,
       email,
-      })
+    })
   })
-  .then((res) => {
-    if(res.status === 400) {
-      return Promise.reject("Некорректно заполнено одно из полей "); 
-    }
-    return res.json();
-  })
+    .then((res) => {
+      if (res.status === 400) {
+        return Promise.reject("Некорректно заполнено одно из полей ");
+      }
+      return _getResponseData(res);
+    })
 };
 
 
-export const authorize = ({password, email}) => {
+export const authorize = ({ password, email }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
@@ -35,25 +42,23 @@ export const authorize = ({password, email}) => {
     body: JSON.stringify({
       password,
       email,
-      })
+    })
   })
-  .then((res) => {
-    if(res.status === 400) {
-      return Promise.reject("Не передано одно из полей");
-    }
-    if(res.status === 401) {
-      return Promise.reject("Пользователь с email не найден");
-    }
-    if (res.ok) {
-      return res.json();
-    }
-  })
-  .then((data) => {
-      if (data.token){
+    .then((res) => {
+      if (res.status === 400) {
+        return Promise.reject("Не передано одно из полей");
+      }
+      if (res.status === 401) {
+        return Promise.reject("Пользователь с email не найден");
+      }
+      return _getResponseData(res);
+    })
+    .then((data) => {
+      if (data.token) {
         localStorage.setItem('token', data.token);
         return data;
       }
-  })
+    })
 };
 
 export const checkToken = (token) => {
@@ -65,13 +70,13 @@ export const checkToken = (token) => {
     },
     credentials: 'include'
   })
-  .then((res) => {
-    if(res.status === 400) {
-      return Promise.reject("Токен не передан или передан не в том формате");
-    }
-    if(res.status === 401) {
-      return Promise.reject("Переданный токен некорректен");
-    }
-    return res.json();
-  })
+    .then((res) => {
+      if (res.status === 400) {
+        return Promise.reject("Токен не передан или передан не в том формате");
+      }
+      if (res.status === 401) {
+        return Promise.reject("Переданный токен некорректен");
+      }
+      return _getResponseData(res);
+    })
 };

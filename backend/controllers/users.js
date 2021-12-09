@@ -156,8 +156,7 @@ const login = (req, res, next) => {
         // token - наш JWT токен, который мы отправляем
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
-      })
-        .end(); // если у ответа нет тела, можно использовать метод end
+      }).send({ token });
     })
     .catch(next);
 };
