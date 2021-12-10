@@ -50,7 +50,7 @@ function App() {
   function handleUpdateUser(user) {
     api.updateUserProfile(user.name, user.about)
       .then(result => {
-        setCurrentUser(result);
+        setCurrentUser(result.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -61,7 +61,7 @@ function App() {
   function handleUpdateAvatar(user) {
     api.updateAvatarProfile(user.avatar.value)
       .then((result) => {
-        setCurrentUser(result);
+        setCurrentUser(result.data);
         //popupAvatarSubmitBtn.textContent = "Сохранить";
         closeAllPopups();
       })
@@ -72,10 +72,10 @@ function App() {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.renderLikes(card._id, isLiked ? 'DELETE' : 'PUT').then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      setCards((state) => state.map((c) => c._id === card._id ? newCard.data : c));
     })
       .catch((err) => {
         console.log(err);
@@ -153,7 +153,7 @@ function App() {
       // проверяем токен пользователя
       auth.checkToken(jwt)
         .then((res) => {
-          setUserEmail(res.data.email)
+          setUserEmail(res.email)
           setLoggedIn(true);
         })
         .catch((err) => {

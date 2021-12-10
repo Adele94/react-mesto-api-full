@@ -93,7 +93,7 @@ class Api {
 
   //добавление или удаление лайка
   renderLikes(cardID, method) {
-    return fetch(this.url + '/cards/likes/' + cardID, {
+    return fetch(`${this.url}/cards/${cardID}/likes`, {
       headers: this.headers,
       method: method,
       credentials: 'include'
@@ -107,7 +107,8 @@ class Api {
 const api = new Api({
   baseUrl: 'https://api.mesto.adel.nabiullina.nomoredomains.work',
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}`,
   }
 });
 
