@@ -164,6 +164,7 @@ function App() {
 
   useEffect(() => {
     handleTokenCheck();
+    if(loggedIn){
     api.getUserProfile()
       .then((result) => {
         setCurrentUser(result);
@@ -171,9 +172,11 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-  }, []);
+    }
+  }, [loggedIn]);
 
   useEffect(() => {
+    if(loggedIn){
     api.getInitialCards()
       .then((result) => {
         setCards(result);
@@ -181,7 +184,8 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-  }, []);
+    }
+  }, [loggedIn]);
 
   useEffect(() => {
     if (loggedIn === true) {

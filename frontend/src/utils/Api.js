@@ -15,7 +15,10 @@ class Api {
   //получение массива карточек 
   getInitialCards() {
     return fetch(this.url + '/cards', {
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
       credentials: 'include'
     })
       .then(res => {
@@ -26,7 +29,10 @@ class Api {
   //получаем данные пользователя
   getUserProfile() {
     return fetch(this.url + '/users/me', {
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
       method: 'GET',
       credentials: 'include'
     })
@@ -38,7 +44,10 @@ class Api {
   //добавить карточку
   addNewCard(data) {
     return fetch(this.url + '/cards', {
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify(data)
@@ -51,7 +60,10 @@ class Api {
   //удаляем карточку
   deleteCard(cardID) {
     return fetch(this.url + '/cards/' + cardID, {
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
       method: 'DELETE',
       credentials: 'include'
     })
@@ -63,7 +75,10 @@ class Api {
   //обновляем данные пользователя
   updateUserProfile(userName, userAbout) {
     return fetch(this.url + '/users/me', {
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
       method: 'PATCH',
       credentials: 'include',
       body: JSON.stringify({
@@ -79,7 +94,10 @@ class Api {
   //обновляем аватар пользователя
   updateAvatarProfile(avatarUrl) {
     return fetch(this.url + '/users/me/avatar', {
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
       method: 'PATCH',
       credentials: 'include',
       body: JSON.stringify({
@@ -94,7 +112,10 @@ class Api {
   //добавление или удаление лайка
   renderLikes(cardID, method) {
     return fetch(`${this.url}/cards/${cardID}/likes`, {
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
       method: method,
       credentials: 'include'
     })
@@ -106,10 +127,6 @@ class Api {
 
 const api = new Api({
   baseUrl: 'https://api.mesto.adel.nabiullina.nomoredomains.work',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-  }
 });
 
 export default api;
