@@ -9,7 +9,7 @@ const routesAuth = require('./routes/auth');
 const auth = require('./middlewares/auth');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { NotFoundError } = require('./errors');
+const { NotFoundError } = require('./errors/NotFoundError');
 
 const app = express();
 

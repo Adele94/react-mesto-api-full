@@ -5,9 +5,10 @@ const { SALT_ROUNDS, JWT_DEV_TOKEN } = require('../config/index');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-const {
-  BadRequestError, UnauthorizedError, NotFoundError, ConflictError,
-} = require('../errors');
+const { ConflictError } = require('../errors/ConflictError');
+const { BadRequestError } = require('../errors/BadRequestError');
+const { UnauthorizedError } = require('../errors/UnauthorizedError');
+const { NotFoundError } = require('../errors/NotFoundError');
 
 const getUsers = (req, res, next) => User.find({})
   .then((users) => res.status(200).send(users))

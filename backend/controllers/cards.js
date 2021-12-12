@@ -1,5 +1,7 @@
 const Card = require('../models/card');
-const { BadRequestError, NotFoundError, ForbiddenError } = require('../errors');
+const { NotFoundError } = require('../errors/NotFoundError');
+const { BadRequestError } = require('../errors/BadRequestError');
+const { ForbiddenError } = require('../errors/ForbiddenError');
 
 const getCards = (req, res, next) => Card.find({})
   .then((cards) => res.status(200).send(cards))
