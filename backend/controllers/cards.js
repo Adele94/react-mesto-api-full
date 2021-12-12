@@ -36,8 +36,7 @@ const deleteCard = (req, res, next) => {
       if (!card.owner.equals(req.user._id)) {
         return next(new ForbiddenError('Удаление чужой карточки запрещено'));
       }
-      card.remove(req.params.cardId);
-      return res.status(200).send({ data: card });
+      return card.remove(req.params.cardId).then(() => res.status(200).send({ data: card }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {

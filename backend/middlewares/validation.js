@@ -11,14 +11,21 @@ const EmailAndPasswordValidation = celebrate({
         return helpers.message('Не соответсвует формату почты');
       }),
     password: Joi.string().required(),
-  }).unknown(true),
+  }),
 });
 
 const NameAndAboutValidation = celebrate({
   [Segments.BODY]: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-  }).unknown(true),
+  }),
+});
+
+const UpdateNameAndAboutValidation = celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    name: Joi.string().min(2).max(30).required(),
+    about: Joi.string().min(2).max(30),
+  }),
 });
 
 const AvatarValidation = celebrate({
@@ -30,7 +37,19 @@ const AvatarValidation = celebrate({
         }
         return helpers.message('Не соответсвует формату ссылки');
       }),
-  }).unknown(true),
+  }),
+});
+
+const UpdateAvatarValidation = celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    avatar: Joi.string()
+      .custom((value, helpers) => {
+        if (validator.isURL(value, { require_protocol: true })) {
+          return value;
+        }
+        return helpers.message('Не соответсвует формату ссылки');
+      }).required(),
+  }),
 });
 
 const UserIdValidation = celebrate({
@@ -42,7 +61,7 @@ const UserIdValidation = celebrate({
         }
         return helpers.message('Не соответсвует формату id пользователя');
       }),
-  }).unknown(true),
+  }),
 });
 
 const CardIdValidation = celebrate({
@@ -54,7 +73,7 @@ const CardIdValidation = celebrate({
         }
         return helpers.message('Не соответсвует формату id карточки');
       }),
-  }).unknown(true),
+  }),
 });
 
 const CardValidation = celebrate({
@@ -67,10 +86,16 @@ const CardValidation = celebrate({
         }
         return helpers.message('Не соответсвует формату ссылки');
       }),
-  }).unknown(true),
+  }),
 });
 
 module.exports = {
-  // eslint-disable-next-line max-len
-  EmailAndPasswordValidation, NameAndAboutValidation, AvatarValidation, UserIdValidation, CardIdValidation, CardValidation,
+  EmailAndPasswordValidation,
+  NameAndAboutValidation,
+  UpdateNameAndAboutValidation,
+  AvatarValidation,
+  UpdateAvatarValidation,
+  UserIdValidation,
+  CardIdValidation,
+  CardValidation,
 };
