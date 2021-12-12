@@ -5,3 +5,10 @@
 **Ссылка на сайте размещенный на Яндекс.Облаке**
 
 * [Ссылка на проект](https://mesto.adel.nabiullina.nomoredomains.rocks/)
+
+**Ссылка на api сервера размещенный на Яндекс.Облаке**
+
+* [Ссылка на api сервера](https://api.mesto.adel.nabiullina.nomoredomains.work/)
+
+**Публичный  api адрес**
+51.250.15.121
