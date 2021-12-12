@@ -44,7 +44,7 @@ const createUser = (req, res, next) => {
     })
     // данные не записались, вернём ошибку
     .catch((err) => {
-      if (err.name === 'MongoServerError' && err.code === 11000) {
+      if (err.code === 11000) {
         next(new ConflictError('Пользователем с таким email уже существует'));
       }
       if (err.name === 'ValidationError') {
@@ -66,7 +66,7 @@ const getUserById = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         // eslint-disable-next-line no-param-reassign
-        err = new BadRequestError('Переданы некорректные данные для возврата пользователя');
+        next(new BadRequestError('Переданы некорректные данные для возврата пользователя'));
       }
       next(err);
     });
@@ -92,7 +92,7 @@ const updateUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         // eslint-disable-next-line no-param-reassign
-        err = new BadRequestError('Переданы некорректные данные при обновлении пользователя');
+        next(new BadRequestError('Переданы некорректные данные при обновлении пользователя'));
       }
       next(err);
     });
@@ -118,7 +118,7 @@ const updateUserAvatar = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         // eslint-disable-next-line no-param-reassign
-        err = new BadRequestError('Переданы некорректные данные при обновлении аватара');
+        next(new BadRequestError('Переданы некорректные данные при обновлении аватара'));
       }
       next(err);
     });
