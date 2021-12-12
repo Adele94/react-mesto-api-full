@@ -24,7 +24,7 @@ const NameAndAboutValidation = celebrate({
 const UpdateNameAndAboutValidation = celebrate({
   [Segments.BODY]: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
-    about: Joi.string().min(2).max(30),
+    about: Joi.string().min(2).max(30).required(),
   }),
 });
 

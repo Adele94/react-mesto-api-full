@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -10,9 +11,8 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String,
     validate: {
-      validator(v) {
-        // eslint-disable-next-line no-useless-escape
-        return /https{0,1}:\/\/[a-z0-9._~:/?#\[\]@!$&'()*+,;=-]+#?/.test(v);
+      validate: {
+        validator: (v) => validator.isURL(v),
       },
       message: 'Не соответсвует формату ссылки',
     },
@@ -20,12 +20,14 @@ const cardSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
     required: true,
   },
-  likes: {
-    type: [mongoose.Schema.Types.ObjectId],
+  likes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
     default: [],
-  },
+  }],
   createdAt: {
     type: Date,
     default: Date.now,
