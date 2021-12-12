@@ -11,4 +11,8 @@
 * [Ссылка на api сервера](https://api.mesto.adel.nabiullina.nomoredomains.work/)
 
 **Публичный  api адрес**
-51.250.15.121
+51.250.8.179
+
+**Тестовый пользователь**
+Email: test@yandex.ru
+Пароль: 123456
